@@ -5,7 +5,7 @@ node {
 
  stage("Compilation and Tests") {
     sh "./mvnw clean install -DskipTests"
-    sh "./mvnw test -Punit"
+    sh "./mvnw test"
   }
   stage("Tests files") {
       sh "ls"
