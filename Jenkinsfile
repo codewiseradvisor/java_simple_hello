@@ -13,7 +13,7 @@ node {
     }
 
   stage("Build Docker Image") {
-    sh "sudo -S docker build -t my-spring-app ."
+    sh "jenkins ALL=(ALL) NOPASSWD: /usr/bin/docker build -t my-spring-app ."
   }
 
   stage("Run Docker Container") {
