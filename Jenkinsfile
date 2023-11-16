@@ -13,10 +13,11 @@ node {
     }
 
   stage("Build Docker Image") {
-    sh "sudo docker build -t my-spring-app ."
+    sh "sudo su"
+    sh "docker build -t my-spring-app ."
   }
 
   stage("Run Docker Container") {
-    sh "sudo docker run -p 8001:8001 my-spring-app"
+    sh "docker run -p 8001:8001 my-spring-app"
   }
 }
