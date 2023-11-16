@@ -1,18 +1,20 @@
 pipeline {
-    agent any
+      stage("Clone the project") {
+        git branch: 'main', url: 'https://github.com/codewiseradvisor/java_simple_hello.git'
+      }
 
-    stages {
+      stage("Compilation") {
+        sh "./mvnw clean install -DskipTests"
+      }
 
-        stage('Build') {
-            steps {
-                sh 'mvn clean package -DskipTests'
-            }
+      stage("Tests and Deployment") {
+        stage("Runing unit tests") {
+          sh "./mvnw test -Punit"
         }
 
-        stage('Run Spring Boot App') {
-            steps {
-                sh "mvn spring-boot:run"
-            }
+        stage("Deployment") {
+          sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
         }
-    }
+      }
+
 }
