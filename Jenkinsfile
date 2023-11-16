@@ -7,6 +7,9 @@ node {
     sh "./mvnw clean install -DskipTests"
     sh "./mvnw test -Punit"
   }
+  stage("Tests files") {
+      sh "ls"
+    }
 
   stage("Build Docker Image") {
     sh "docker build -t my-spring-app ."
