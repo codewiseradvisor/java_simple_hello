@@ -13,7 +13,6 @@ node {
     }
 
   stage("Build Docker Image") {
-    sh "sudo su"
     sh "docker build -t my-spring-app ."
   }
 
