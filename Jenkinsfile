@@ -3,17 +3,16 @@ node {
     git branch: 'main', url: 'https://github.com/codewiseradvisor/java_simple_hello.git'
   }
 
-  stage("Compilation") {
+ stage("Compilation and Tests") {
     sh "./mvnw clean install -DskipTests"
+    sh "./mvnw test -Punit"
   }
 
-  stage("Tests and Deployment") {
-    stage("Runing unit tests") {
-      sh "./mvnw test -Punit"
-    }
+  stage("Build Docker Image") {
+    sh "docker build -t my-spring-app ."
+  }
 
-    stage("Deployment") {
-      sh 'nohup ./mvnw spring-boot:run -Dserver.port=8001 &'
-    }
+  stage("Run Docker Container") {
+    sh "docker run -p 8001:8001 my-spring-app"
   }
 }
