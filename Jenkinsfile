@@ -12,7 +12,7 @@ node {
     }
 
   stage("Build Docker Image") {
-    sh "docker build -f /var/lib/jenkins/workspace/testtt/Dockerfile -t my-spring-app ."
+    sh "docker build -t my-spring-app ."
   }
 
   stage("Run Docker Container") {
