@@ -14,9 +14,9 @@ pipeline {
             }
         }
 
-        stage('Copy Artifact to Local Machine') {
+        stage('Run Spring Boot App') {
             steps {
-                sh "cp target/Codewise-0.0.1-SNAPSHOT.jar /var/lib/jenkins/workspace/test"
+                sh "mvn spring-boot:run"
             }
         }
     }
