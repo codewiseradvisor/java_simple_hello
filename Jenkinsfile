@@ -12,7 +12,7 @@ node {
     }
 
   stage("Build Docker Image") {
-    sh "docker build -t my-spring-app -f Dockerfile ."
+    sh "docker build -t my-spring-app -f ~/Dockerfile ."
   }
 
   stage("Run Docker Container") {
