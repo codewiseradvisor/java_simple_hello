@@ -9,6 +9,7 @@ node {
   }
   stage("Tests files") {
       sh "ls"
+      sh "pwd"
     }
 
   stage("Build Docker Image") {
