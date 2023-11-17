@@ -60,20 +60,20 @@ pipeline {
 //             }
 //         }
 
-        stage("Build Docker Image") {
+        stage("Run Docker Compose") {
             steps {
                 script {
-                    sh "docker build -t my-spring-app ."
+                    sh "docker compose up -d"
                 }
             }
         }
 
-        stage("Run Docker Container") {
-            steps {
-                script {
-                    sh "docker run -p 8001:8001 -d my-spring-app"
-                }
-            }
-        }
+//         stage("Run Docker Container") {
+//             steps {
+//                 script {
+//                     sh "docker run -p 8001:8001 -d my-spring-app"
+//                 }
+//             }
+//         }
     }
 }
