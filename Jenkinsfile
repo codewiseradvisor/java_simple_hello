@@ -33,7 +33,7 @@ pipeline {
         stage("Run Docker Container") {
             steps {
                 script {
-                    sh "docker run -p 8001:8001 my-spring-app -d"
+                    sh "docker run -p 8001:8001 -d my-spring-app"
                 }
             }
         }
