@@ -61,11 +61,10 @@ pipeline {
 
         stage("Build Docker Image") {
             steps {
-                script {
-                    sh "docker build -t my-spring-app ."
-                }
+               sh "docker build -t my-spring-app ."
             }
         }
+
         stage("Test docker4") {
                      steps {
                          sh "docker ps"
@@ -76,9 +75,7 @@ pipeline {
 
         stage("Run Docker Container") {
             steps {
-                script {
-                    sh "docker run -p 8001:8001 -d my-spring-app"
-                }
+                sh "docker run -p 8001:8001 -d my-spring-app"
             }
         }
     }
