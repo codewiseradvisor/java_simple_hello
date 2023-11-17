@@ -25,7 +25,7 @@ pipeline {
         stage("Stop old containers"){
             steps{
                 script{
-                    sh "docker stop $(docker ps -q)"
+                    sh "docker stop \$(docker ps -q)"
                 }
             }
         }
@@ -33,14 +33,14 @@ pipeline {
         stage("Cleanup old containers"){
             steps{
                 script{
-                    sh "docker rm -f $(docker ps -aq)"
+                    sh "docker rm -f \$(docker ps -aq)"
                 }
             }
         }
         stage("Cleanup old images"){
             steps{
                 script{
-                    sh "docker rmi -f $(docker images -aq)"
+                    sh "docker rmi -f \$(docker images -aq)"
                 }
             }
         }
