@@ -1,4 +1,4 @@
-node {
+pipeline {
     stages {
         stage("Clone the project") {
             steps {
@@ -47,6 +47,7 @@ node {
         stage("Run Docker Container") {
             steps {
                 sh "docker container prune -f"
+                sh "sleep 2s"
                 sh "docker run -p 8001:8001 -d my-spring-app"
             }
         }
