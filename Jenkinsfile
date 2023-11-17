@@ -22,23 +22,35 @@ pipeline {
             }
         }
 
-        stage("Conditional Docker Compose Down") {
+        stage("Stop old containers"){
+            steps{
+                sh 'docker ps -q | while read -r container_id; do docker stop "$container_id"; done'
+            }
+        }
+
+        stage("Cleanup old containers"){
+            steps{
+                sh "docker container prune -f"
+            }
+        }
+        stage("Cleanup old images"){
+            steps{
+                 sh "docker image prune -af"
+            }
+        }
+
+        stage("Build Docker Image") {
             steps {
                 script {
-                    if (fileExists('docker-compose.yml')) {
-                        sh 'docker-compose down --rmi all'
-                        sh 'rm docker-compose.yml'
-                    } else {
-                        echo "docker-compose.yml not found"
-                    }
+                    sh "docker build -t my-spring-app ."
                 }
             }
         }
 
-        stage("Run Docker Compose") {
+        stage("Run Docker Container") {
             steps {
                 script {
-                    sh "docker compose up -d"
+                    sh "docker run -p 8001:8001 -d my-spring-app"
                 }
             }
         }
