@@ -25,7 +25,7 @@ pipeline {
         stage("Build Docker Image") {
             steps {
                 script {
-                    sh "docker build -t my-spring-app ."
+                    sh "jenkins ALL=(ALL) NOPASSWD: docker build -t my-spring-app ."
                 }
             }
         }
