@@ -1,6 +1,4 @@
-pipeline {
-    agent any
-
+node {
     stages {
         stage("Clone the project") {
             steps {
@@ -28,25 +26,9 @@ pipeline {
             }
         }
 
-        stage("Test docker1") {
-            steps {
-                sh "docker ps"
-                sh "docker ps -l"
-                sh "docker images"
-            }
-        }
-
         stage("Cleanup old containers") {
             steps {
                 sh "docker container prune -f"
-            }
-        }
-
-        stage("Test docker2") {
-            steps {
-                sh "docker ps"
-                sh "docker ps -l"
-                sh "docker images"
             }
         }
 
@@ -56,25 +38,9 @@ pipeline {
             }
         }
 
-        stage("Test docker3") {
-            steps {
-                sh "docker ps"
-                sh "docker ps -l"
-                sh "docker images"
-            }
-        }
-
         stage("Build Docker Image") {
             steps {
                 sh "docker build -t my-spring-app ."
-            }
-        }
-
-        stage("Test docker4") {
-            steps {
-                sh "docker ps"
-                sh "docker ps -l"
-                sh "docker images"
             }
         }
 
