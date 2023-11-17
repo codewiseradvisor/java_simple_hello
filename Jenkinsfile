@@ -80,7 +80,7 @@ pipeline {
 
         stage("Run Docker Container") {
             steps {
-                sh "docker stop \$(docker ps -q --filter='ancestor=my-spring-app' --filter='publish=8001')"
+                sh "docker container prune -f"
                 sh "docker run -p 8001:8001 -d my-spring-app"
             }
         }
