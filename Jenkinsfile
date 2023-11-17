@@ -21,6 +21,16 @@ pipeline {
                 sh "pwd"
             }
         }
+        stage("Cleanup Old Container & Image") {
+            steps {
+                script {
+                    sh "docker ps -aq --filter 'ancestor=my-spring-app' | xargs -r docker stop"
+                    sh "docker ps -aq --filter 'ancestor=my-spring-app' | xargs -r docker rm -v"
+
+                    sh "docker images -q my-spring-app | xargs -r docker rmi -f"
+                }
+            }
+        }
 
         stage("Build Docker Image") {
             steps {
