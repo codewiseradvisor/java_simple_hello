@@ -22,28 +22,43 @@ pipeline {
             }
         }
 
-        stage("Stop old containers"){
-            steps{
-                script{
-                    sh "docker stop \$(docker ps -q)"
-                }
-            }
+
+        stages {
+             stage("Conditional Docker Compose Down") {
+                steps {
+                    script {
+                        if (fileExists('docker-compose.yml')) {
+                            sh 'docker-compose down --rmi all'
+                            sh 'rm docker-compose.yml'
+                        } else {
+                           echo "docker-compose.yml not found"
+                        }
+                    }
+             }
         }
 
-        stage("Cleanup old containers"){
-            steps{
-                script{
-                    sh "docker rm -f \$(docker ps -aq)"
-                }
-            }
-        }
-        stage("Cleanup old images"){
-            steps{
-                script{
-                    sh "docker rmi -f \$(docker images -aq)"
-                }
-            }
-        }
+//         stage("Stop old containers"){
+//             steps{
+//                 script{
+//                     sh "docker stop \$(docker ps -q)"
+//                 }
+//             }
+//         }
+//
+//         stage("Cleanup old containers"){
+//             steps{
+//                 script{
+//                     sh "docker rm -f \$(docker ps -aq)"
+//                 }
+//             }
+//         }
+//         stage("Cleanup old images"){
+//             steps{
+//                 script{
+//                     sh "docker rmi -f \$(docker images -aq)"
+//                 }
+//             }
+//         }
 
         stage("Build Docker Image") {
             steps {
