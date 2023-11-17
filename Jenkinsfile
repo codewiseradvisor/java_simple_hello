@@ -21,11 +21,27 @@ pipeline {
                 sh "pwd"
             }
         }
-        stage("Cleanup Old Container & Image") {
-            steps {
+
+        stage("Stop old containers"){
+            steps{
+                script{
                     sh "docker ps -aq | xargs -r docker stop"
+                }
+            }
+        }
+
+        stage("Cleanup old containers"){
+            steps{
+                script{
                     sh "docker ps -aq | xargs -r docker rm -v"
+                }
+            }
+        }
+        stage("Cleanup old images"){
+            steps{
+                script{
                     sh "docker images -aq | xargs -r docker rmi -f"
+                }
             }
         }
 
