@@ -2,7 +2,7 @@ FROM public.ecr.aws/docker/library/openjdk:17 AS build
 WORKDIR /app
 COPY . .
 RUN ./mvnw clean package
-
+RUN apt-get update && apt-get install procps
 FROM public.ecr.aws/docker/library/openjdk:17.0.2-jdk-slim
 WORKDIR /app
 COPY --from=build /app/target/Codewise-0.0.1-SNAPSHOT.jar ./codewise.jar
